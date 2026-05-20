@@ -1,0 +1,81 @@
+# Signal Aggregator Configuration
+# Coven Traders - Agora Agents Hackathon
+
+redis:
+  host: localhost
+  port: 6379
+  db: 0
+  channel: coven.signals
+
+sources:
+  onchain:
+    enabled: true
+    interval: 30
+    whale_threshold_usd: 100000
+    dex_volume_spike_threshold: 3.0
+    mempool_gas_spike_threshold: 2.0
+    funding_rate_threshold: 0.01
+
+  social:
+    enabled: true
+    interval: 60
+    twitter_bearer_token: ""
+    discord_webhooks: []
+    telegram_bot_tokens: []
+    sentiment_threshold: 0.6
+
+  news:
+    enabled: true
+    interval: 300
+    rss_feeds:
+      - https://cointelegraph.com/rss
+      - https://coindesk.com/arc/outboundfeeds/rss/
+      - https://decrypt.co/feed
+    macro_calendar_url: ""
+    earnings_api: ""
+
+  technical:
+    enabled: true
+    interval: 60
+    exchanges:
+      - binance
+      - coinbase
+    rsi_overbought: 70
+    rsi_oversold: 30
+    macd_fast: 12
+    macd_slow: 26
+    macd_signal: 9
+    bollinger_period: 20
+    bollinger_std: 2
+    orderbook_depth_threshold: 0.1
+
+  prediction:
+    enabled: true
+    interval: 300
+    polymarket_api: "https://gamma-api.polymarket.com"
+    kalshi_api: "https://trading-api.kalshi.com"
+    azuro_oracle: ""
+    probability_shift_threshold: 0.05
+
+  cross_market:
+    enabled: true
+    interval: 30
+    cex_exchanges:
+      - binance
+      - coinbase
+      - kraken
+    dex_exchanges:
+      - uniswap_v3
+      - curve
+    spread_threshold: 0.005
+    funding_arb_threshold: 0.001
+    basis_threshold: 0.01
+
+signal:
+  default_confidence: 0.5
+  default_expiry_seconds: 3600
+  max_signals_per_batch: 100
+
+logging:
+  level: INFO
+  format: "%(asctime)s | %(levelname)s | %(name)s | %(message)s"

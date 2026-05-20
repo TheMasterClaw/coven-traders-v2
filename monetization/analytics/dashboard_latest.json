@@ -1,0 +1,339 @@
+{
+  "generated_at": "2026-05-16T03:53:05.314270Z",
+  "period": {
+    "start": "2026-05-10T03:53:05.294902",
+    "end": "2026-05-16T03:53:05.294902"
+  },
+  "summary": {
+    "gross_revenue_usdc": 3972.37,
+    "net_revenue_usdc": 3972.37,
+    "total_transactions": 441,
+    "total_refunds_usdc": 0.0,
+    "refund_rate_percent": 0.0
+  },
+  "daily": [
+    {
+      "date": "2026-05-10",
+      "gross": 514.56,
+      "net": 514.56,
+      "txns": 72,
+      "unique_payers": 36,
+      "arpu": 1.4293,
+      "arppu": 14.2933,
+      "conversion_rate": 10.0,
+      "refunds": 0.0
+    },
+    {
+      "date": "2026-05-11",
+      "gross": 676.54,
+      "net": 676.54,
+      "txns": 74,
+      "unique_payers": 43,
+      "arpu": 1.5733,
+      "arppu": 15.7335,
+      "conversion_rate": 10.0,
+      "refunds": 0.0
+    },
+    {
+      "date": "2026-05-12",
+      "gross": 806.51,
+      "net": 806.51,
+      "txns": 73,
+      "unique_payers": 40,
+      "arpu": 2.0163,
+      "arppu": 20.1628,
+      "conversion_rate": 10.0,
+      "refunds": 0.0
+    },
+    {
+      "date": "2026-05-13",
+      "gross": 693.59,
+      "net": 693.59,
+      "txns": 73,
+      "unique_payers": 34,
+      "arpu": 2.04,
+      "arppu": 20.3997,
+      "conversion_rate": 10.0,
+      "refunds": 0.0
+    },
+    {
+      "date": "2026-05-14",
+      "gross": 517.73,
+      "net": 517.73,
+      "txns": 70,
+      "unique_payers": 39,
+      "arpu": 1.3275,
+      "arppu": 13.2751,
+      "conversion_rate": 10.0,
+      "refunds": 0.0
+    },
+    {
+      "date": "2026-05-15",
+      "gross": 624.68,
+      "net": 624.68,
+      "txns": 67,
+      "unique_payers": 35,
+      "arpu": 1.7848,
+      "arppu": 17.848,
+      "conversion_rate": 10.0,
+      "refunds": 0.0
+    },
+    {
+      "date": "2026-05-16",
+      "gross": 138.76,
+      "net": 138.76,
+      "txns": 12,
+      "unique_payers": 12,
+      "arpu": 1.1563,
+      "arppu": 11.5633,
+      "conversion_rate": 10.0,
+      "refunds": 0.0
+    }
+  ],
+  "category_breakdown": [
+    {
+      "category": "boosts",
+      "revenue_usdc": 164.34,
+      "transactions": 85,
+      "units_sold": 166,
+      "avg_order_value": 1.93
+    },
+    {
+      "category": "resource_packs",
+      "revenue_usdc": 208.89,
+      "transactions": 101,
+      "units_sold": 211,
+      "avg_order_value": 2.07
+    },
+    {
+      "category": "battle_pass",
+      "revenue_usdc": 1968.03,
+      "transactions": 101,
+      "units_sold": 197,
+      "avg_order_value": 19.49
+    },
+    {
+      "category": "gacha",
+      "revenue_usdc": 2155.84,
+      "transactions": 213,
+      "units_sold": 416,
+      "avg_order_value": 10.12
+    }
+  ],
+  "gacha_analytics": {
+    "ancient": {
+      "total_pulls": 0,
+      "revenue_usdc": 0.0,
+      "rarity_distribution": {},
+      "pity_triggered": 0,
+      "expected_vs_actual": {
+        "common": {
+          "expected": 0.0,
+          "actual": 0.0
+        },
+        "uncommon": {
+          "expected": 0.0,
+          "actual": 0.0
+        },
+        "rare": {
+          "expected": 0.0,
+          "actual": 0.0
+        },
+        "epic": {
+          "expected": 0.0,
+          "actual": 0.0
+        },
+        "legendary": {
+          "expected": 0.0,
+          "actual": 0.0
+        }
+      }
+    },
+    "standard": {
+      "total_pulls": 300,
+      "revenue_usdc": 297.0,
+      "rarity_distribution": {
+        "common": 182,
+        "uncommon": 82,
+        "rare": 26,
+        "epic": 9,
+        "legendary": 1
+      },
+      "pity_triggered": 16,
+      "expected_vs_actual": {
+        "common": {
+          "expected": 180.0,
+          "actual": 182.0
+        },
+        "uncommon": {
+          "expected": 84.0,
+          "actual": 82.0
+        },
+        "rare": {
+          "expected": 27.0,
+          "actual": 26.0
+        },
+        "epic": {
+          "expected": 7.5,
+          "actual": 9.0
+        },
+        "legendary": {
+          "expected": 1.5,
+          "actual": 1.0
+        }
+      }
+    }
+  },
+  "forecast": [
+    {
+      "date": "2026-05-17",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-18",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-19",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-20",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-21",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-22",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-23",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-24",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-25",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-26",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-27",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-28",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-29",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-30",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-05-31",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-01",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-02",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-03",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-04",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-05",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-06",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-07",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-08",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-09",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-10",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-11",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-12",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-13",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-14",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    },
+    {
+      "date": "2026-06-15",
+      "forecast_net_usdc": 567.48,
+      "confidence": "medium"
+    }
+  ]
+}

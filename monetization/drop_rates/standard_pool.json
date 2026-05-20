@@ -1,0 +1,211 @@
+{
+  "pool_id": "standard",
+  "name": "Standard Fleet Contract",
+  "description": "Common to Epic ships and modules. On-chain verifiable drop rates.",
+  "version": "1.0.0",
+  "effective_date": "2026-05-15",
+  "regulatory_jurisdiction": "global",
+  "verification": {
+    "method": "commit-reveal",
+    "chain": "arc",
+    "contract": "GachaStandardPool",
+    "commit_block_buffer": 3,
+    "reveal_block_buffer": 1,
+    "entropy_source": "blockhash_vrf_mix"
+  },
+  "pity": {
+    "enabled": true,
+    "soft_pity_start_pull": 30,
+    "soft_pity_increment_percent_per_pull": 5.0,
+    "hard_pity_pull": 90,
+    "hard_pity_guaranteed_rarity": "epic",
+    "pity_counter_persists_across_sessions": true,
+    "pity_counter_reset_on_hard_pity": true
+  },
+  "guarantees": {
+    "ten_pull_guarantee": {
+      "enabled": true,
+      "guaranteed_rarity_floor": "rare",
+      "applies_to_multi_pull_only": true
+    }
+  },
+  "rarity_tiers": {
+    "common": {
+      "display_name": "Common",
+      "color_hex": "#9E9E9E",
+      "base_drop_rate": 0.60,
+      "min_display_rate": 0.55,
+      "max_display_rate": 0.65
+    },
+    "uncommon": {
+      "display_name": "Uncommon",
+      "color_hex": "#4CAF50",
+      "base_drop_rate": 0.28,
+      "min_display_rate": 0.25,
+      "max_display_rate": 0.30
+    },
+    "rare": {
+      "display_name": "Rare",
+      "color_hex": "#2196F3",
+      "base_drop_rate": 0.09,
+      "min_display_rate": 0.08,
+      "max_display_rate": 0.10
+    },
+    "epic": {
+      "display_name": "Epic",
+      "color_hex": "#9C27B0",
+      "base_drop_rate": 0.025,
+      "min_display_rate": 0.02,
+      "max_display_rate": 0.03
+    },
+    "legendary": {
+      "display_name": "Legendary",
+      "color_hex": "#FF9800",
+      "base_drop_rate": 0.005,
+      "min_display_rate": 0.004,
+      "max_display_rate": 0.006
+    }
+  },
+  "drop_table": [
+    {
+      "item_id": "ship_frigate_mk1",
+      "name": "Frigate Mk.I",
+      "rarity": "common",
+      "type": "ship",
+      "class": "frigate",
+      "weight": 300,
+      "rate_within_rarity": 0.50
+    },
+    {
+      "item_id": "ship_frigate_mk2",
+      "name": "Frigate Mk.II",
+      "rarity": "common",
+      "type": "ship",
+      "class": "frigate",
+      "weight": 200,
+      "rate_within_rarity": 0.33
+    },
+    {
+      "item_id": "module_shield_basic",
+      "name": "Basic Shield Array",
+      "rarity": "common",
+      "type": "module",
+      "slot": "defense",
+      "weight": 100,
+      "rate_within_rarity": 0.17
+    },
+    {
+      "item_id": "ship_destroyer_viper",
+      "name": "Destroyer Viper",
+      "rarity": "uncommon",
+      "type": "ship",
+      "class": "destroyer",
+      "weight": 200,
+      "rate_within_rarity": 0.357
+    },
+    {
+      "item_id": "module_railgun_t1",
+      "name": "Railgun T1",
+      "rarity": "uncommon",
+      "type": "module",
+      "slot": "weapon",
+      "weight": 150,
+      "rate_within_rarity": 0.268
+    },
+    {
+      "item_id": "module_scanner_enhanced",
+      "name": "Enhanced Scanner",
+      "rarity": "uncommon",
+      "type": "module",
+      "slot": "utility",
+      "weight": 100,
+      "rate_within_rarity": 0.179
+    },
+    {
+      "item_id": "ship_cruiser_aurora",
+      "name": "Cruiser Aurora",
+      "rarity": "rare",
+      "type": "ship",
+      "class": "cruiser",
+      "weight": 120,
+      "rate_within_rarity": 0.444
+    },
+    {
+      "item_id": "module_plasma_cannon",
+      "name": "Plasma Cannon Array",
+      "rarity": "rare",
+      "type": "module",
+      "slot": "weapon",
+      "weight": 100,
+      "rate_within_rarity": 0.370
+    },
+    {
+      "item_id": "module_warp_engine_mk3",
+      "name": "Warp Engine Mk.III",
+      "rarity": "rare",
+      "type": "module",
+      "slot": "engine",
+      "weight": 50,
+      "rate_within_rarity": 0.186
+    },
+    {
+      "item_id": "ship_battleship_titan",
+      "name": "Battleship Titan",
+      "rarity": "epic",
+      "type": "ship",
+      "class": "battleship",
+      "weight": 80,
+      "rate_within_rarity": 0.80
+    },
+    {
+      "item_id": "module_dyson_shield",
+      "name": "Dyson Shield Projector",
+      "rarity": "epic",
+      "type": "module",
+      "slot": "defense",
+      "weight": 20,
+      "rate_within_rarity": 0.20
+    },
+    {
+      "item_id": "ship_dreadnought_elysium",
+      "name": "Dreadnought Elysium",
+      "rarity": "legendary",
+      "type": "ship",
+      "class": "dreadnought",
+      "weight": 80,
+      "rate_within_rarity": 0.80
+    },
+    {
+      "item_id": "module_singularity_core",
+      "name": "Singularity Power Core",
+      "rarity": "legendary",
+      "type": "module",
+      "slot": "power",
+      "weight": 20,
+      "rate_within_rarity": 0.20
+    }
+  ],
+  "on_chain_verification": {
+    "rate_commitment": {
+      "description": "Pool rates are committed on-chain at the start of each day (00:00 UTC). The keccak256 hash of this JSON (minus verification.signatures) is stored in the GachaRateCommitment contract.",
+      "contract_address": "0xGachaRateCommitment",
+      "commitment_frequency": "daily",
+      "reveal_delay_blocks": 1
+    },
+    "pull_verification": {
+      "description": "Each pull uses commit-reveal with VRF. Player commits a seed; contract reveals using blockhash+VRF after buffer blocks.",
+      "vrf_contract": "0xVRFCoordinator",
+      "callback_gas_limit": 200000,
+      "request_confirmations": 3
+    },
+    "audit_log": {
+      "description": "All pull results, rate commitments, and pity state transitions are emitted as events and indexed for public audit.",
+      "events": [
+        "RateCommitment(bytes32 indexed poolId, bytes32 indexed commitmentHash, uint256 timestamp)",
+        "PullCommitted(bytes32 indexed pullId, address indexed player, uint256 blockNumber)",
+        "PullRevealed(bytes32 indexed pullId, bytes32 indexed entropy, uint256 indexed itemId, uint8 rarity)",
+        "PityStateUpdated(address indexed player, uint16 pullCount, uint8 pendingGuaranteeRarity)"
+      ]
+    }
+  }
+}

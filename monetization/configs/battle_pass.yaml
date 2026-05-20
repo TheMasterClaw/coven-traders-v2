@@ -1,0 +1,174 @@
+# Agora Coven Traders — Battle Pass Configuration
+# Season 03: Astral Drift
+# All micro-transactions in USDC on Arc
+
+metadata:
+  season_id: "s03_astral_drift"
+  season_name: "Astral Drift"
+  theme: "Deep space exploration and ancient relics"
+  start_date: "2026-06-01T00:00:00Z"
+  end_date: "2026-08-31T23:59:59Z"
+  duration_days: 92
+  currency: "USDC"
+  premium_track_price_usdc: 9.99
+  premium_plus_price_usdc: 19.99
+  xp_per_tier: 1000
+  total_tiers: 100
+  free_track_label: "Free"
+  premium_track_label: "Premium"
+  premium_plus_label: "Premium + 10 Tiers"
+
+xp_sources:
+  daily_login:
+    base_xp: 100
+    streak_multiplier: [1.0, 1.1, 1.2, 1.3, 1.5, 1.5, 1.5]
+    max_streak_days: 7
+  idle_production_hour:
+    xp: 10
+    cap_per_day: 240
+  trade_completed:
+    xp: 50
+    cap_per_day: 500
+  pvp_victory:
+    xp: 75
+    cap_per_day: 750
+  pvp_defeat:
+    xp: 15
+    cap_per_day: 150
+  guild_contribution:
+    xp: 25
+    cap_per_day: 250
+  quest_completed:
+    xp: 100
+    cap_per_day: 1000
+  battle_pass_purchase:
+    xp: 0
+    note: "Instant tier skip for Premium+ only"
+
+tiers:
+  # Every 10 tiers is a milestone with enhanced rewards
+  # Format: tier_number -> { free: [rewards], premium: [rewards] }
+  # Using a compact representation; full expansion available in engine
+
+  milestone_interval: 10
+  milestone_bonus_xp: 500
+
+  reward_types:
+    - type: credits
+      description: "In-game currency"
+    - type: ore
+      description: "Crafting material"
+    - type: plasma
+      description: "Advanced crafting material"
+    - type: data_cores
+      description: "Research material"
+    - type: blueprints
+      description: "Ship/module blueprint fragments"
+    - type: gacha_ticket
+      description: "Free gacha pull ticket"
+    - type: cosmetic
+      description: "Cosmetic unlock"
+    - type: boost
+      description: "Timed production boost"
+    - type: title
+      description: "Player title"
+    - type: ship
+      description: "Guaranteed ship reward"
+
+  # Tier 1-9: Standard progression
+  standard_tier_rewards:
+    free:
+      - { type: credits, amount: 500 }
+    premium:
+      - { type: credits, amount: 2000 }
+      - { type: ore, amount: 100 }
+
+  # Tier 10, 20, 30... milestones
+  milestone_rewards:
+    free:
+      - { type: gacha_ticket, amount: 1 }
+      - { type: credits, amount: 5000 }
+    premium:
+      - { type: gacha_ticket, amount: 3 }
+      - { type: credits, amount: 20000 }
+      - { type: data_cores, amount: 50 }
+
+  # Specific notable tiers (overrides standard/milestone)
+  special_tiers:
+    tier_1:
+      free:
+        - { type: credits, amount: 1000 }
+        - { type: title, value: "Astral Drifter" }
+      premium:
+        - { type: credits, amount: 5000 }
+        - { type: boost, sku: "boost_2h", amount: 2 }
+        - { type: cosmetic, sku: "trail_pulsar" }
+
+    tier_25:
+      free:
+        - { type: gacha_ticket, amount: 2 }
+        - { type: credits, amount: 10000 }
+      premium:
+        - { type: ship, item_id: "ship_frigate_mk2", rarity: "common" }
+        - { type: credits, amount: 50000 }
+        - { type: blueprints, amount: 20 }
+
+    tier_50:
+      free:
+        - { type: gacha_ticket, amount: 3 }
+        - { type: credits, amount: 25000 }
+      premium:
+        - { type: ship, item_id: "ship_cruiser_aurora", rarity: "rare" }
+        - { type: credits, amount: 100000 }
+        - { type: data_cores, amount: 200 }
+        - { type: cosmetic, sku: "skin_void_navy" }
+
+    tier_75:
+      free:
+        - { type: gacha_ticket, amount: 5 }
+        - { type: credits, amount: 50000 }
+      premium:
+        - { type: ship, item_id: "ship_battleship_titan", rarity: "epic" }
+        - { type: credits, amount: 250000 }
+        - { type: blueprints, amount: 100 }
+
+    tier_100:
+      free:
+        - { type: title, value: "Astral Veteran" }
+        - { type: gacha_ticket, amount: 5 }
+        - { type: credits, amount: 100000 }
+      premium:
+        - { type: ship, item_id: "ship_dreadnought_elysium", rarity: "legendary" }
+        - { type: title, value: "Astral Sovereign" }
+        - { type: credits, amount: 500000 }
+        - { type: cosmetic, sku: "skin_gold_sovereign" }
+        - { type: boost, sku: "boost_24h", amount: 5 }
+
+  # Auto-generated tiers (tiers not in special_tiers follow pattern)
+  auto_generate: true
+  auto_generate_pattern:
+    non_milestone:
+      free: [{ type: credits, amount: 500 }]
+      premium: [{ type: credits, amount: 2000 }, { type: ore, amount: 100 }]
+    milestone:
+      free: [{ type: gacha_ticket, amount: 1 }, { type: credits, amount: 5000 }]
+      premium:
+        - { type: gacha_ticket, amount: 3 }
+        - { type: credits, amount: 20000 }
+        - { type: data_cores, amount: 50 }
+
+seasonal_events:
+  - event_id: "mid_season_surge"
+    name: "Mid-Season Surge"
+    start: "2026-07-15T00:00:00Z"
+    end: "2026-07-22T23:59:59Z"
+    effect: "2x XP from all sources"
+
+  - event_id: "final_push"
+    name: "Final Push"
+    start: "2026-08-24T00:00:00Z"
+    end: "2026-08-31T23:59:59Z"
+    effect: "1.5x XP + bonus tier rewards"
+    bonus_rewards_per_tier:
+      free: [{ type: credits, amount: 1000 }]
+      premium: [{ type: credits, amount: 5000 }]

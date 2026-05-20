@@ -1,0 +1,298 @@
+# Agora Coven Traders — Shop Configuration
+# All prices denominated in USDC (6 decimals on Arc EVM L2)
+# Contract: Shop.sol (0x...)
+
+metadata:
+  version: "1.0.0"
+  chain: "arc"
+  currency: "USDC"
+  currency_decimals: 6
+  updated_at: "2026-05-15T20:00:00Z"
+
+categories:
+  - id: boosts
+    name: "Time Boosts"
+    description: "Accelerate idle production and fleet regeneration"
+    display_order: 1
+
+  - id: cosmetics
+    name: "Fleet Cosmetics"
+    description: "Visual customizations for your ships and stations"
+    display_order: 2
+
+  - id: resource_packs
+    name: "Resource Packs"
+    description: "Instant resource bundles for crafting and trading"
+    display_order: 3
+
+  - id: battle_pass
+    name: "Battle Pass"
+    description: "Seasonal progression with free and premium rewards"
+    display_order: 4
+
+  - id: gacha
+    name: "Fleet Acquisitions"
+    description: "Gacha pulls for rare ships and modules"
+    display_order: 5
+
+items:
+  # ---------- BOOSTS ----------
+  - sku: "boost_2h"
+    category: boosts
+    name: "Warp Drive (2h)"
+    description: "2x production speed for 2 hours"
+    price_usdc: 0.99
+    max_quantity_per_txn: 10
+    is_consumable: true
+    duration_seconds: 7200
+    effect:
+      type: "production_multiplier"
+      multiplier: 2.0
+
+  - sku: "boost_8h"
+    category: boosts
+    name: "Nebula Surge (8h)"
+    description: "2x production speed for 8 hours"
+    price_usdc: 2.99
+    max_quantity_per_txn: 5
+    is_consumable: true
+    duration_seconds: 28800
+    effect:
+      type: "production_multiplier"
+      multiplier: 2.0
+
+  - sku: "boost_24h"
+    category: boosts
+    name: "Singularity Core (24h)"
+    description: "3x production speed for 24 hours"
+    price_usdc: 6.99
+    max_quantity_per_txn: 3
+    is_consumable: true
+    duration_seconds: 86400
+    effect:
+      type: "production_multiplier"
+      multiplier: 3.0
+
+  - sku: "boost_instant"
+    category: boosts
+    name: "Quantum Leap"
+    description: "Skip 4 hours of idle production instantly"
+    price_usdc: 1.49
+    max_quantity_per_txn: 20
+    is_consumable: true
+    duration_seconds: 0
+    effect:
+      type: "instant_production"
+      hours: 4
+
+  # ---------- COSMETICS ----------
+  - sku: "skin_void_navy"
+    category: cosmetics
+    name: "Void Navy Hull"
+    description: "Matte black hull coating for all frigate-class ships"
+    price_usdc: 4.99
+    max_quantity_per_txn: 1
+    is_consumable: false
+    rarity: "rare"
+    applies_to: ["frigate", "destroyer"]
+
+  - sku: "skin_gold_sovereign"
+    category: cosmetics
+    name: "Gold Sovereign Trim"
+    description: "Gilded accent plating for capital ships"
+    price_usdc: 9.99
+    max_quantity_per_txn: 1
+    is_consumable: false
+    rarity: "epic"
+    applies_to: ["cruiser", "battleship", "dreadnought"]
+
+  - sku: "trail_pulsar"
+    category: cosmetics
+    name: "Pulsar Engine Trail"
+    description: "Cyan particle trail for all engine types"
+    price_usdc: 2.99
+    max_quantity_per_txn: 1
+    is_consumable: false
+    rarity: "uncommon"
+    applies_to: ["all"]
+
+  - sku: "emote_salute"
+    category: cosmetics
+    name: "Fleet Salute Emote"
+    description: "Animated salute for guild and PvP encounters"
+    price_usdc: 1.99
+    max_quantity_per_txn: 1
+    is_consumable: false
+    rarity: "common"
+    applies_to: ["player"]
+
+  # ---------- RESOURCE PACKS ----------
+  - sku: "pack_starter"
+    category: resource_packs
+    name: "Starter Cache"
+    description: "10k Credits, 500 Ore, 200 Plasma"
+    price_usdc: 0.99
+    max_quantity_per_txn: 50
+    is_consumable: true
+    contents:
+      credits: 10000
+      ore: 500
+      plasma: 200
+
+  - sku: "pack_trader"
+    category: resource_packs
+    name: "Trader's Hoard"
+    description: "50k Credits, 3k Ore, 1k Plasma, 50 Data Cores"
+    price_usdc: 4.99
+    max_quantity_per_txn: 20
+    is_consumable: true
+    contents:
+      credits: 50000
+      ore: 3000
+      plasma: 1000
+      data_cores: 50
+
+  - sku: "pack_mogul"
+    category: resource_packs
+    name: "Mogul's Vault"
+    description: "250k Credits, 20k Ore, 8k Plasma, 300 Data Cores, 10 Blueprints"
+    price_usdc: 19.99
+    max_quantity_per_txn: 10
+    is_consumable: true
+    contents:
+      credits: 250000
+      ore: 20000
+      plasma: 8000
+      data_cores: 300
+      blueprints: 10
+
+  - sku: "pack_empire"
+    category: resource_packs
+    name: "Empire Reserve"
+    description: "1M Credits, 100k Ore, 40k Plasma, 2k Data Cores, 100 Blueprints, 1 Random Epic Ship"
+    price_usdc: 49.99
+    max_quantity_per_txn: 5
+    is_consumable: true
+    contents:
+      credits: 1000000
+      ore: 100000
+      plasma: 40000
+      data_cores: 2000
+      blueprints: 100
+      bonus_gacha: "epic_ship_random"
+
+  # ---------- BATTLE PASS ----------
+  - sku: "bp_premium"
+    category: battle_pass
+    name: "Season Pass — Premium Track"
+    description: "Unlock premium rewards for the current season"
+    price_usdc: 9.99
+    max_quantity_per_txn: 1
+    is_consumable: false
+    season_id: "s03_astral_drift"
+    unlocks: "premium_track"
+    bonus:
+      instant_reward_sku: "bp_premium_bundle"
+      xp_boost_percent: 20
+
+  - sku: "bp_premium_plus"
+    category: battle_pass
+    name: "Season Pass — Premium + 10 Tiers"
+    description: "Premium track + instant 10-tier skip"
+    price_usdc: 19.99
+    max_quantity_per_txn: 1
+    is_consumable: false
+    season_id: "s03_astral_drift"
+    unlocks: "premium_track"
+    bonus:
+      instant_tier_skip: 10
+      xp_boost_percent: 20
+
+  # ---------- GACHA ----------
+  - sku: "gacha_standard"
+    category: gacha
+    name: "Standard Fleet Contract"
+    description: "1 pull — Common to Epic ships and modules"
+    price_usdc: 0.99
+    max_quantity_per_txn: 50
+    is_consumable: true
+    gacha_pool: "standard"
+    pity_system: true
+
+  - sku: "gacha_standard_10"
+    category: gacha
+    name: "Standard Fleet Contract x10"
+    description: "10 pulls with guaranteed Rare+ on the 10th"
+    price_usdc: 8.99
+    max_quantity_per_txn: 10
+    is_consumable: true
+    gacha_pool: "standard"
+    pity_system: true
+    bonus:
+      guaranteed_rare_plus_on_last: true
+
+  - sku: "gacha_ancient"
+    category: gacha
+    name: "Ancient Relic Contract"
+    description: "1 pull — Rare to Legendary ships and modules"
+    price_usdc: 4.99
+    max_quantity_per_txn: 20
+    is_consumable: true
+    gacha_pool: "ancient"
+    pity_system: true
+
+  - sku: "gacha_ancient_10"
+    category: gacha
+    name: "Ancient Relic Contract x10"
+    description: "10 pulls with guaranteed Epic+ on the 10th"
+    price_usdc: 44.99
+    max_quantity_per_txn: 5
+    is_consumable: true
+    gacha_pool: "ancient"
+    pity_system: true
+    bonus:
+      guaranteed_epic_plus_on_last: true
+
+bundles:
+  - id: "welcome_bundle"
+    name: "Coven Welcome Bundle"
+    description: "One-time starter offer for new captains"
+    price_usdc: 2.99
+    available_for_days_after_registration: 7
+    items:
+      - sku: "pack_starter"
+        quantity: 2
+      - sku: "boost_2h"
+        quantity: 3
+      - sku: "skin_void_navy"
+        quantity: 1
+    discount_vs_individual_percent: 40
+
+  - id: "weekly_boost_bundle"
+    name: "Weekly Warp Bundle"
+    description: "Recurring weekly bundle for active traders"
+    price_usdc: 7.99
+    reset_cron: "0 0 * * 1"
+    items:
+      - sku: "boost_8h"
+        quantity: 2
+      - sku: "boost_24h"
+        quantity: 1
+      - sku: "pack_trader"
+        quantity: 1
+    discount_vs_individual_percent: 35
+
+sale_events:
+  - id: "flash_friday"
+    name: "Flash Friday"
+    cron: "0 18 * * 5"
+    duration_hours: 4
+    discount_percent: 25
+    applicable_categories: [boosts, resource_packs]
+
+  - id: "season_launch"
+    name: "Season Launch Sale"
+    start: "2026-06-01T00:00:00Z"
+    end: "2026-06-07T23:59:59Z"
+    discount_percent: 15
+    applicable_skus: ["bp_premium", "bp_premium_plus"]

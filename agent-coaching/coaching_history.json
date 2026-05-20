@@ -1,0 +1,15 @@
+[
+  {
+    "timestamp": "2026-05-16T03:45:25.679956+00:00",
+    "player_id": "player_1",
+    "agent_id": "agent_alpha",
+    "raw_instruction": "be more aggressive on ETH perps",
+    "parsed_intent": "increase_aggression",
+    "parameter_changes": {
+      "aggression_level": 0.6
+    },
+    "validation_errors": [],
+    "applied": true,
+    "feedback": "Applied changes: Aggression level set to 0.6."
+  }
+]

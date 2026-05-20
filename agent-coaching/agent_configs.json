@@ -1,0 +1,17 @@
+{
+  "agent_alpha": {
+    "aggression_level": 0.6,
+    "max_position_size": 1.0,
+    "stop_loss_pct": 0.05,
+    "take_profit_pct": 0.1,
+    "trade_frequency": 0.5,
+    "preferred_assets": [],
+    "avoided_assets": [],
+    "avoided_conditions": [],
+    "preferred_conditions": [],
+    "funding_rate_threshold": -0.01,
+    "volatility_threshold": 0.5,
+    "leverage_max": 5.0,
+    "risk_per_trade": 0.02
+  }
+}
