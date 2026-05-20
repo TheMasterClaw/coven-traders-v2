@@ -3,779 +3,874 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coven Traders — Idle RPG Trading Game</title>
+  <title>Coven Traders — Command the Fleet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-deep: #010102;
+      --bg-marketing: #08090a;
+      --bg-panel: #0f1011;
+      --bg-surface: #191a1b;
+      --bg-elevated: #28282c;
+      --text-primary: #f7f8f8;
+      --text-secondary: #d0d6e0;
+      --text-tertiary: #8a8f98;
+      --text-muted: #62666d;
+      --brand-indigo: #5e6ad2;
+      --accent-violet: #7170ff;
+      --accent-hover: #828fff;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --border-subtle: rgba(255,255,255,0.05);
+      --border-standard: rgba(255,255,255,0.08);
+      --border-prominent: rgba(255,255,255,0.12);
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      background: #000; 
-      color: #fff; 
-      font-family: 'Courier New', monospace;
-      min-height: 100vh;
-      overflow-x: hidden;
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-marketing);
+      color: var(--text-primary);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
-    .stars {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-      z-index: -1;
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(8,9,10,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 1000;
+      padding: 0 24px;
     }
-    .star { 
-      position: absolute; background: white; border-radius: 50%;
-      animation: twinkle var(--duration) ease-in-out infinite;
-    }
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
-    }
-    nav {
-      border-bottom: 1px solid #333;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(10px);
-      padding: 12px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo { font-size: 20px; font-weight: bold; }
-    .logo span { color: #0ff; }
-    .tagline { font-size: 10px; color: #666; }
-    .btn {
-      background: rgba(0,255,255,0.1);
-      border: 1px solid #0ff;
-      color: #0ff;
-      padding: 8px 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 12px;
-    }
-    .btn:hover { background: rgba(0,255,255,0.2); }
-    .container {
-      max-width: 1400px;
+
+    .nav-inner {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 20px;
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 20px;
-    }
-    .sidebar {
       display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .card {
-      background: rgba(20,20,20,0.9);
-      border: 1px solid #333;
-      border-radius: 8px;
-      padding: 16px;
-    }
-    .card h2 {
-      font-size: 14px;
-      color: #0ff;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .stat-row {
-      display: flex;
+      align-items: center;
       justify-content: space-between;
-      margin: 8px 0;
-      font-size: 12px;
+      height: 56px;
     }
-    .stat-label { color: #888; }
-    .stat-value { color: #0f0; font-weight: bold; }
-    .progress-bar {
-      height: 4px;
-      background: #333;
-      border-radius: 2px;
-      margin-top: 4px;
-      overflow: hidden;
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -0.165px;
+      color: var(--text-primary);
+      text-decoration: none;
     }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #0ff, #00f);
-      border-radius: 2px;
-      transition: width 0.5s;
+
+    .nav-brand svg {
+      width: 28px; height: 28px;
     }
-    .nav-btn {
-      width: 100%;
-      text-align: left;
-      padding: 12px;
-      margin: 4px 0;
-      background: rgba(0,0,0,0.5);
-      border: 1px solid #333;
-      border-radius: 6px;
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.13px;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-cta {
+      background: var(--brand-indigo);
       color: #fff;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-    .nav-btn:hover {
-      border-color: #0ff;
-      background: rgba(0,255,255,0.05);
-    }
-    .nav-btn.active {
-      border-color: #0ff;
-      background: rgba(0,255,255,0.1);
-    }
-    .nav-btn .emoji { margin-right: 8px; }
-    .nav-btn .desc {
-      font-size: 10px;
-      color: #666;
-      display: block;
-      margin-top: 2px;
-    }
-    .main-content {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .sector-map {
-      height: 500px;
-      background: rgba(10,10,10,0.9);
-      border: 1px solid #333;
-      border-radius: 8px;
-      position: relative;
-      overflow: hidden;
-    }
-    .sector-map canvas {
-      width: 100%;
-      height: 100%;
-    }
-    .map-overlay {
-      position: absolute;
-      bottom: 16px;
-      left: 16px;
-      background: rgba(0,0,0,0.8);
-      border: 1px solid #333;
-      padding: 12px;
+      border: none;
+      padding: 8px 16px;
       border-radius: 6px;
-      font-size: 11px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
     }
-    .legend-dot {
-      display: inline-block;
-      width: 8px; height: 8px;
+
+    .nav-cta:hover {
+      background: var(--accent-hover);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 140px 24px 80px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(94,106,210,0.12);
+      border: 1px solid rgba(94,106,210,0.25);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent-violet);
+      margin-bottom: 28px;
+    }
+
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      background: var(--success);
       border-radius: 50%;
-      margin-right: 4px;
+      animation: pulse 2s infinite;
     }
-    .price-ticker {
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      font-weight: 600;
+      line-height: 1.0;
+      letter-spacing: -1.408px;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #f7f8f8 0%, #8a8f98 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.60;
+      letter-spacing: -0.165px;
+      color: var(--text-tertiary);
+      max-width: 560px;
+      margin: 0 auto 36px;
+    }
+
+    .hero-buttons {
       display: flex;
-      gap: 24px;
-      padding: 12px;
-      background: rgba(20,20,20,0.9);
-      border: 1px solid #333;
-      border-radius: 8px;
-      overflow-x: auto;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 60px;
     }
-    .ticker-item {
+
+    .btn-primary {
+      background: var(--brand-indigo);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.02);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-standard);
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border-prominent);
+    }
+
+    /* Dashboard Preview */
+    .dashboard-preview {
+      max-width: 1100px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+    }
+
+    .dashboard-frame {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-standard);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.2), 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .dashboard-header {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 12px;
-      white-space: nowrap;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
     }
-    .ticker-symbol { font-weight: bold; color: #0ff; }
-    .ticker-price { color: #fff; }
-    .ticker-change { color: #0f0; }
-    .ticker-change.down { color: #f00; }
-    .panel {
-      background: rgba(20,20,20,0.9);
-      border: 1px solid #333;
+
+    .window-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+
+    .window-dot.red { background: #ff5f56; }
+    .window-dot.yellow { background: #ffbd2e; }
+    .window-dot.green { background: #27c93f; }
+
+    .dashboard-content {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-subtle);
       border-radius: 8px;
-      padding: 16px;
-      display: none;
+      padding: 20px;
     }
-    .panel.active { display: block; }
-    .panel h3 {
-      color: #0ff;
-      font-size: 16px;
+
+    .stat-card .label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .stat-card .value {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .stat-card .change {
+      font-size: 13px;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .change.positive { color: var(--success); }
+    .change.negative { color: var(--danger); }
+
+    /* Features */
+    .features {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: 36px;
+      font-weight: 600;
+      line-height: 1.22;
+      letter-spacing: -0.5px;
       margin-bottom: 12px;
     }
-    .fleet-grid {
+
+    .section-header p {
+      font-size: 16px;
+      color: var(--text-tertiary);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .feature-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
-    .fleet-card {
-      background: rgba(0,0,0,0.5);
-      border: 1px solid #333;
-      border-radius: 6px;
-      padding: 12px;
-      text-align: center;
-    }
-    .fleet-card .level {
-      font-size: 24px;
-      color: #0ff;
-    }
-    .shop-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 12px;
-    }
-    .shop-item {
-      background: rgba(0,0,0,0.5);
-      border: 1px solid #333;
-      border-radius: 6px;
-      padding: 12px;
-      text-align: center;
-      cursor: pointer;
+
+    .feature-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 28px;
       transition: all 0.2s;
     }
-    .shop-item:hover {
-      border-color: #0ff;
+
+    .feature-card:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: var(--border-standard);
       transform: translateY(-2px);
     }
-    .shop-item .price {
-      color: #0f0;
-      font-size: 14px;
-      margin-top: 8px;
-    }
-    .achievement {
+
+    .feature-icon {
+      width: 40px; height: 40px;
+      background: rgba(94,106,210,0.12);
+      border: 1px solid rgba(94,106,210,0.2);
+      border-radius: 8px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 8px;
-      background: rgba(0,0,0,0.3);
-      border-radius: 6px;
-      margin: 4px 0;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 18px;
     }
-    .achievement.locked { opacity: 0.4; }
-    .achievement-icon {
-      width: 40px; height: 40px;
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.24px;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      line-height: 1.60;
+      color: var(--text-tertiary);
+    }
+
+    /* Disciples Section */
+    .disciples {
+      padding: 80px 24px;
+      background: linear-gradient(180deg, var(--bg-marketing) 0%, rgba(94,106,210,0.03) 50%, var(--bg-marketing) 100%);
+    }
+
+    .disciples-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .disciple-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    .disciple-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .disciple-card:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: var(--brand-indigo);
+    }
+
+    .disciple-avatar {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--brand-indigo), var(--accent-violet));
       border-radius: 50%;
+      margin: 0 auto 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 20px;
-      background: rgba(255,215,0,0.1);
-      border: 1px solid gold;
     }
-    .chat-messages {
-      height: 300px;
-      overflow-y: auto;
-      background: rgba(0,0,0,0.5);
-      border-radius: 6px;
-      padding: 12px;
-      margin-bottom: 12px;
+
+    .disciple-card h4 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
     }
-    .chat-msg {
-      margin: 4px 0;
-      font-size: 12px;
+
+    .disciple-card span {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
     }
-    .chat-msg .user { color: #0ff; }
-    .chat-msg .time { color: #666; font-size: 10px; }
-    .chat-input {
+
+    /* Live Feed */
+    .live-feed {
+      padding: 80px 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .feed-container {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-standard);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .feed-header {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .feed-header h3 {
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
       gap: 8px;
     }
-    .chat-input input {
-      flex: 1;
-      background: rgba(0,0,0,0.5);
-      border: 1px solid #333;
-      color: #fff;
-      padding: 8px 12px;
-      border-radius: 4px;
-      font-family: inherit;
+
+    .live-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--success);
+      font-weight: 500;
     }
-    @media (max-width: 900px) {
-      .container { grid-template-columns: 1fr; }
-      .sidebar { order: 2; }
+
+    .live-indicator .pulse {
+      width: 6px; height: 6px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
     }
+
+    .feed-list {
+      padding: 8px;
+    }
+
+    .feed-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+
+    .feed-item:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .feed-item .info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feed-item .avatar {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--brand-indigo), var(--accent-violet));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .feed-item .details h4 {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .feed-item .details span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .feed-item .amount {
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .amount.positive { color: var(--success); }
+    .amount.negative { color: var(--danger); }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 100px 24px;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-size: 48px;
+      font-weight: 600;
+      line-height: 1.0;
+      letter-spacing: -1.056px;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: var(--text-tertiary);
+      margin-bottom: 32px;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 40px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-secondary);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .disciple-grid { grid-template-columns: repeat(3, 1fr); }
+      .dashboard-content { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; letter-spacing: -0.704px; }
+      .section-header h2 { font-size: 28px; }
+      .cta-section h2 { font-size: 32px; letter-spacing: -0.704px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .disciple-grid { grid-template-columns: repeat(2, 1fr); }
+      .dashboard-content { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .footer { flex-direction: column; gap: 20px; text-align: center; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--bg-elevated); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
   </style>
 </head>
 <body>
-  <div class="stars" id="stars"></div>
-  
-  <nav>
-    <div>
-      <div class="logo">🐾 COVEN <span>TRADERS</span></div>
-      <div class="tagline">IDLE RPG · REAL USDC · AI DISCIPLES</div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <svg viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="12" stroke="#5e6ad2" stroke-width="2"/>
+          <circle cx="14" cy="14" r="6" fill="#5e6ad2"/>
+          <circle cx="14" cy="14" r="2" fill="#08090a"/>
+        </svg>
+        Coven Traders
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#disciples">Disciples</a></li>
+        <li><a href="#live">Live Feed</a></li>
+        <li><a href="#">Docs</a></li>
+      </ul>
+      <button class="nav-cta">Connect Wallet</button>
     </div>
-    <button class="btn">CONNECT WALLET</button>
   </nav>
 
-  <div class="container">
-    <div class="sidebar">
-      <div class="card">
-        <h2>Command Center</h2>
-        <div class="stat-row">
-          <span class="stat-label">Level</span>
-          <span class="stat-value">12</span>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
-        <div class="stat-row">
-          <span class="stat-label">Total Earnings</span>
-          <span class="stat-value">$1,247.83</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">Per Second</span>
-          <span class="stat-value">+$0.042</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">Fleet Power</span>
-          <span class="stat-value">2,847</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">Disciples</span>
-          <span class="stat-value">8 / 12</span>
-        </div>
-        <div style="margin-top: 12px; display: flex; gap: 8px;">
-          <button class="btn" style="flex: 1;">🔄 SYNC</button>
-          <button class="btn" style="flex: 1;">⚡ BOOST</button>
-          <button class="btn" style="flex: 1; background: rgba(0,255,0,0.1); border-color: #0f0; color: #0f0;">💰 CLAIM</button>
-        </div>
-      </div>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Agora Agents Hackathon 2026
+    </div>
+    <h1>Command the Fleet.<br>Trade Real USDC.</h1>
+    <p>An idle RPG where AI disciples trade USDC on Arc. Build your coven, deploy autonomous fleets, and earn while you sleep.</p>
+    <div class="hero-buttons">
+      <a href="#" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Launch App
+      </a>
+      <a href="https://github.com/TheMasterClaw/coven-traders" class="btn-ghost" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        View on GitHub
+      </a>
+    </div>
+  </section>
 
-      <div class="card">
-        <h2>Navigation</h2>
-        <button class="nav-btn active" onclick="showPanel('map')">
-          <span class="emoji">🗺️</span>Sector Map
-          <span class="desc">Explore the galaxy</span>
-        </button>
-        <button class="nav-btn" onclick="showPanel('fleet')">
-          <span class="emoji">🚀</span>Fleet Manager
-          <span class="desc">Deploy disciples</span>
-        </button>
-        <button class="nav-btn" onclick="showPanel('tech')">
-          <span class="emoji">🔬</span>Tech Tree
-          <span class="desc">Research upgrades</span>
-        </button>
-        <button class="nav-btn" onclick="showPanel('market')">
-          <span class="emoji">📡</span>Market Radar
-          <span class="desc">Trading signals</span>
-        </button>
-        <button class="nav-btn" onclick="showPanel('shop')">
-          <span class="emoji">🛒</span>Market
-          <span class="desc">Buy boosts & packs</span>
-        </button>
-        <button class="nav-btn" onclick="showPanel('leaderboard')">
-          <span class="emoji">🏆</span>Leaderboard
-          <span class="desc">Season rankings</span>
-        </button>
-        <button class="nav-btn" onclick="showPanel('achievements')">
-          <span class="emoji">🏅</span>Achievements
-          <span class="desc">Badges & quests</span>
-        </button>
-        <button class="nav-btn" onclick="showPanel('chat')">
-          <span class="emoji">💬</span>Global Feed
-          <span class="desc">Chat & intel</span>
-        </button>
+  <!-- Dashboard Preview -->
+  <section class="dashboard-preview">
+    <div class="dashboard-frame">
+      <div class="dashboard-header">
+        <div class="window-dot red"></div>
+        <div class="window-dot yellow"></div>
+        <div class="window-dot green"></div>
+        <span style="margin-left: 8px; font-size: 12px; color: var(--text-muted); font-weight: 500;">Command Center</span>
+      </div>
+      <div class="dashboard-content">
+        <div class="stat-card">
+          <div class="label">Total AUM</div>
+          <div class="value">$142.8K</div>
+          <div class="change positive">+12.4% today</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Active Disciples</div>
+          <div class="value">8/12</div>
+          <div class="change positive">+2 this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Win Rate</div>
+          <div class="value">67.3%</div>
+          <div class="change negative">-2.1% vs last</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Pending Crusades</div>
+          <div class="value">3</div>
+          <div class="change positive">$4.2K at stake</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Best Performer</div>
+          <div class="value" style="font-size: 20px;">SEER</div>
+          <div class="change positive">+28.7% ROI</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Gas Saved</div>
+          <div class="value">$847</div>
+          <div class="change positive">via Paymaster</div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="main-content">
-      <div class="price-ticker" id="ticker">
-        <div class="ticker-item"><span class="ticker-symbol">ETH</span><span class="ticker-price">$3,247.18</span><span class="ticker-change">+2.4%</span></div>
-        <div class="ticker-item"><span class="ticker-symbol">BTC</span><span class="ticker-price">$67,891.42</span><span class="ticker-change">+1.8%</span></div>
-        <div class="ticker-item"><span class="ticker-symbol">SOL</span><span class="ticker-price">$142.67</span><span class="ticker-change down">-0.9%</span></div>
-        <div class="ticker-item"><span class="ticker-symbol">ARB</span><span class="ticker-price">$1.08</span><span class="ticker-change">+5.2%</span></div>
-        <div class="ticker-item"><span class="ticker-symbol">USDC</span><span class="ticker-price">$1.00</span><span class="ticker-change">+0.01%</span></div>
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <h2>Built for Autonomous Trading</h2>
+      <p>Every feature designed to make AI-driven trading feel like commanding a fleet.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>AI Disciples</h3>
+        <p>12 specialized trading agents, each with unique strategies. Deploy, upgrade, and coach them with natural language.</p>
       </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Real USDC</h3>
+        <p>Trade actual USDC on Arc via Circle. Gasless transactions with Paymaster. CCTP for cross-chain capital.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎮</div>
+        <h3>Idle RPG Loop</h3>
+        <p>Earn passively while offline. Active crusades for bonus rewards. Level up disciples and unlock abilities.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Signal Aggregator</h3>
+        <p>Multi-source intelligence: on-chain flows, social sentiment, oracle feeds. Weighted consensus engine.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>Meshy 3D Assets</h3>
+        <p>AI-generated 3D avatars, weapons, and environments. Every disciple gets a unique visual identity.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏆</div>
+        <h3>Tournaments</h3>
+        <p>Weekly crusades with real prize pools. Entry fees in USDC. Winners take all. Leaderboards reset each season.</p>
+      </div>
+    </div>
+  </section>
 
-      <div id="panel-map" class="panel active">
-        <div class="sector-map">
-          <canvas id="spaceCanvas"></canvas>
-          <div class="map-overlay">
-            <div style="color: #888; margin-bottom: 8px;">SECTOR INTEL</div>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-              <span><span class="legend-dot" style="background: #4ade80;"></span><span style="color: #4ade80;">Core</span></span>
-              <span><span class="legend-dot" style="background: #f97316;"></span><span style="color: #f97316;">Outer Rim</span></span>
-              <span><span class="legend-dot" style="background: #a78bfa;"></span><span style="color: #a78bfa;">Wormhole</span></span>
-              <span><span class="legend-dot" style="background: #ef4444;"></span><span style="color: #ef4444;">Black Market</span></span>
-              <span><span class="legend-dot" style="background: #ec4899;"></span><span style="color: #ec4899;">Nebula</span></span>
+  <!-- Disciples -->
+  <section class="disciples" id="disciples">
+    <div class="disciples-inner">
+      <div class="section-header">
+        <h2>The 12 Disciples</h2>
+        <p>Each disciple specializes in a trading strategy. Mix and match to build your perfect coven.</p>
+      </div>
+      <div class="disciple-grid">
+        <div class="disciple-card">
+          <div class="disciple-avatar">⚔️</div>
+          <h4>WARRIOR</h4>
+          <span>Perp Trading</span>
+        </div>
+        <div class="disciple-card">
+          <div class="disciple-avatar">🔮</div>
+          <h4>SEER</h4>
+          <span>Portfolio Intel</span>
+        </div>
+        <div class="disciple-card">
+          <div class="disciple-avatar">🔥</div>
+          <h4>PROPHET</h4>
+          <span>Predictions</span>
+        </div>
+        <div class="disciple-card">
+          <div class="disciple-avatar">⚡</div>
+          <h4>ARBITRAGEUR</h4>
+          <span>Cross-Platform</span>
+        </div>
+        <div class="disciple-card">
+          <div class="disciple-avatar">🌊</div>
+          <h4>ORACLE</h4>
+          <span>Market Making</span>
+        </div>
+        <div class="disciple-card">
+          <div class="disciple-avatar">🎯</div>
+          <h4>HUNTER</h4>
+          <span>Social Trading</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Feed -->
+  <section class="live-feed" id="live">
+    <div class="section-header">
+      <h2>Live Crusades</h2>
+      <p>Real-time trading activity from active disciples across the fleet.</p>
+    </div>
+    <div class="feed-container">
+      <div class="feed-header">
+        <h3>🔥 Recent Activity</h3>
+        <div class="live-indicator">
+          <span class="pulse"></span>
+          LIVE
+        </div>
+      </div>
+      <div class="feed-list">
+        <div class="feed-item">
+          <div class="info">
+            <div class="avatar">🔮</div>
+            <div class="details">
+              <h4>SEER opened long BTC</h4>
+              <span>2 min ago • Signal confidence: 94%</span>
             </div>
           </div>
+          <div class="amount positive">+$1,240</div>
         </div>
-      </div>
-
-      <div id="panel-fleet" class="panel">
-        <h3>🚀 Fleet Manager</h3>
-        <div class="fleet-grid">
-          <div class="fleet-card">
-            <div style="font-size: 32px;">⚔️</div>
-            <div>Perp Warrior</div>
-            <div class="level">Lv.8</div>
-            <div style="color: #888; font-size: 11px;">Power: 847</div>
+        <div class="feed-item">
+          <div class="info">
+            <div class="avatar">⚔️</div>
+            <div class="details">
+              <h4>WARRIOR closed ETH short</h4>
+              <span>5 min ago • 3x leverage</span>
+            </div>
           </div>
-          <div class="fleet-card">
-            <div style="font-size: 32px;">🛡️</div>
-            <div>Sentinel</div>
-            <div class="level">Lv.5</div>
-            <div style="color: #888; font-size: 11px;">Power: 423</div>
-          </div>
-          <div class="fleet-card">
-            <div style="font-size: 32px;">🔮</div>
-            <div>Oracle</div>
-            <div class="level">Lv.6</div>
-            <div style="color: #888; font-size: 11px;">Power: 612</div>
-          </div>
-          <div class="fleet-card">
-            <div style="font-size: 32px;">⚡</div>
-            <div>Arb Hunter</div>
-            <div class="level">Lv.4</div>
-            <div style="color: #888; font-size: 11px;">Power: 389</div>
-          </div>
-          <div class="fleet-card" style="border-style: dashed; opacity: 0.5;">
-            <div style="font-size: 32px;">+</div>
-            <div>Recruit New</div>
-            <div style="color: #0f0; font-size: 12px;">500 USDC</div>
-          </div>
+          <div class="amount positive">+$890</div>
         </div>
-      </div>
-
-      <div id="panel-tech" class="panel">
-        <h3>🔬 Tech Tree</h3>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
-          <div class="card">
-            <div style="font-size: 24px;">📡</div>
-            <div>Signal Boost</div>
-            <div style="color: #888; font-size: 11px;">+15% signal accuracy</div>
-            <div style="color: #0f0; margin-top: 8px;">200 USDC</div>
+        <div class="feed-item">
+          <div class="info">
+            <div class="avatar">⚡</div>
+            <div class="details">
+              <h4>ARBITRAGEUR executed arb</h4>
+              <span>8 min ago • Arc → Base</span>
+            </div>
           </div>
-          <div class="card">
-            <div style="font-size: 24px;">⚡</div>
-            <div>Hyperdrive</div>
-            <div style="color: #888; font-size: 11px;">+25% travel speed</div>
-            <div style="color: #0f0; margin-top: 8px;">350 USDC</div>
-          </div>
-          <div class="card">
-            <div style="font-size: 24px;">🛡️</div>
-            <div>Shield Matrix</div>
-            <div style="color: #888; font-size: 11px;">-20% risk exposure</div>
-            <div style="color: #0f0; margin-top: 8px;">500 USDC</div>
-          </div>
+          <div class="amount positive">+$45</div>
         </div>
-      </div>
-
-      <div id="panel-market" class="panel">
-        <h3>📡 Market Radar</h3>
-        <div class="card">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <span>ETH/USDC</span>
-            <span style="color: #0f0;">BUY SIGNAL ⬆️</span>
+        <div class="feed-item">
+          <div class="info">
+            <div class="avatar">🌊</div>
+            <div class="details">
+              <h4>ORACLE rebalanced pool</h4>
+              <span>12 min ago • USDC/USYC</span>
+            </div>
           </div>
-          <div style="color: #888; font-size: 11px;">Confidence: 87% · Source: 5 aggregators</div>
+          <div class="amount negative">-$120</div>
         </div>
-        <div class="card">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <span>BTC/USDC</span>
-            <span style="color: #888;">HOLD ➡️</span>
+        <div class="feed-item">
+          <div class="info">
+            <div class="avatar">🎯</div>
+            <div class="details">
+              <h4>HUNTER copied PROPHET</h4>
+              <span>15 min ago • Social signal</span>
+            </div>
           </div>
-          <div style="color: #888; font-size: 11px;">Confidence: 62% · Source: 4 aggregators</div>
-        </div>
-        <div class="card">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <span>SOL/USDC</span>
-            <span style="color: #f00;">SELL SIGNAL ⬇️</span>
-          </div>
-          <div style="color: #888; font-size: 11px;">Confidence: 91% · Source: 6 aggregators</div>
-        </div>
-      </div>
-
-      <div id="panel-shop" class="panel">
-        <h3>🛒 Market</h3>
-        <div class="shop-grid">
-          <div class="shop-item">
-            <div style="font-size: 32px;">🎁</div>
-            <div>Recruit Pack</div>
-            <div style="color: #888; font-size: 11px;">3 random disciples</div>
-            <div class="price">100 USDC</div>
-          </div>
-          <div class="shop-item">
-            <div style="font-size: 32px;">⚡</div>
-            <div>Boost Token</div>
-            <div style="color: #888; font-size: 11px;">2x earnings 1hr</div>
-            <div class="price">50 USDC</div>
-          </div>
-          <div class="shop-item">
-            <div style="font-size: 32px;">🔑</div>
-            <div>Sector Key</div>
-            <div style="color: #888; font-size: 11px;">Unlock new sector</div>
-            <div class="price">200 USDC</div>
-          </div>
-          <div class="shop-item">
-            <div style="font-size: 32px;">🏆</div>
-            <div>Battle Pass</div>
-            <div style="color: #888; font-size: 11px;">Season rewards</div>
-            <div class="price">500 USDC</div>
-          </div>
-        </div>
-      </div>
-
-      <div id="panel-leaderboard" class="panel">
-        <h3>🏆 Leaderboard</h3>
-        <div class="card">
-          <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #333; color: #888; font-size: 11px;">
-            <span>RANK</span>
-            <span>PLAYER</span>
-            <span>EARNINGS</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; padding: 8px 0;">
-            <span style="color: gold;">#1</span>
-            <span>VoidWalker</span>
-            <span style="color: #0f0;">$12,847</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; padding: 8px 0;">
-            <span style="color: silver;">#2</span>
-            <span>StarLord_X</span>
-            <span style="color: #0f0;">$9,234</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; padding: 8px 0;">
-            <span style="color: #cd7f32;">#3</span>
-            <span>NebulaDrift</span>
-            <span style="color: #0f0;">$7,891</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; padding: 8px 0; color: #666;">
-            <span>#42</span>
-            <span>You</span>
-            <span>$1,247</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="panel-achievements" class="panel">
-        <h3>🏅 Achievements</h3>
-        <div class="achievement">
-          <div class="achievement-icon">🚀</div>
-          <div>
-            <div>First Launch</div>
-            <div style="color: #888; font-size: 11px;">Deploy your first disciple</div>
-          </div>
-        </div>
-        <div class="achievement">
-          <div class="achievement-icon">💰</div>
-          <div>
-            <div>First Profit</div>
-            <div style="color: #888; font-size: 11px;">Earn $100 in a single trade</div>
-          </div>
-        </div>
-        <div class="achievement locked">
-          <div class="achievement-icon">🏆</div>
-          <div>
-            <div>Top 10</div>
-            <div style="color: #888; font-size: 11px;">Reach top 10 on leaderboard</div>
-          </div>
-        </div>
-        <div class="achievement locked">
-          <div class="achievement-icon">🌌</div>
-          <div>
-            <div>Galaxy Master</div>
-            <div style="color: #888; font-size: 11px;">Unlock all sectors</div>
-          </div>
-        </div>
-      </div>
-
-      <div id="panel-chat" class="panel">
-        <h3>💬 Global Feed</h3>
-        <div class="chat-messages" id="chatMessages">
-          <div class="chat-msg"><span class="time">[02:14]</span> <span class="user">VoidWalker:</span> Just hit $12K earnings! 🚀</div>
-          <div class="chat-msg"><span class="time">[02:10]</span> <span class="user">System:</span> New sector "Nebula-7" discovered</div>
-          <div class="chat-msg"><span class="time">[02:05]</span> <span class="user">StarLord_X:</span> Buying the dip on SOL 👀</div>
-          <div class="chat-msg"><span class="time">[01:58]</span> <span class="user">NebulaDrift:</span> Anyone tried the new boost tokens?</div>
-        </div>
-        <div class="chat-input">
-          <input type="text" placeholder="Broadcast intel..." id="chatInput">
-          <button class="btn" onclick="sendChat()">Send</button>
+          <div class="amount positive">+$320</div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <script>
-    // Starfield background
-    const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 200; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
-      star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
-      star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-      star.style.animationDelay = Math.random() * 5 + 's';
-      starsContainer.appendChild(star);
-    }
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Ready to command?</h2>
+    <p>Join the Agora hackathon. Build your coven. Trade real USDC. Win $55K+ in prizes.</p>
+    <div class="hero-buttons">
+      <a href="#" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Start Building
+      </a>
+      <a href="https://agora.thecanteenapp.com" class="btn-ghost" target="_blank">
+        View Hackathon
+      </a>
+    </div>
+  </section>
 
-    // Panel switching
-    function showPanel(name) {
-      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('panel-' + name).classList.add('active');
-      event.target.closest('.nav-btn').classList.add('active');
-    }
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-brand">
+      <svg width="20" height="20" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="12" stroke="#5e6ad2" stroke-width="2"/>
+        <circle cx="14" cy="14" r="6" fill="#5e6ad2"/>
+      </svg>
+      Coven Traders
+    </div>
+    <ul class="footer-links">
+      <li><a href="#">GitHub</a></li>
+      <li><a href="#">Docs</a></li>
+      <li><a href="#">Twitter</a></li>
+      <li><a href="#">Discord</a></li>
+    </ul>
+  </footer>
 
-    // Space map canvas
-    const canvas = document.getElementById('spaceCanvas');
-    const ctx = canvas.getContext('2d');
-    function resizeCanvas() {
-      const rect = canvas.parentElement.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const sectors = [
-      { x: 0.5, y: 0.5, r: 8, color: '#4ade80', name: 'Alpha Prime', type: 'core' },
-      { x: 0.2, y: 0.3, r: 6, color: '#f97316', name: 'Beta Station', type: 'outer' },
-      { x: 0.8, y: 0.2, r: 5, color: '#a78bfa', name: 'Wormhole X', type: 'wormhole' },
-      { x: 0.3, y: 0.8, r: 7, color: '#ef4444', name: 'Black Market', type: 'blackmarket' },
-      { x: 0.7, y: 0.7, r: 6, color: '#ec4899', name: 'Nebula-7', type: 'nebula' },
-      { x: 0.1, y: 0.6, r: 5, color: '#f97316', name: 'Gamma Outpost', type: 'outer' },
-      { x: 0.9, y: 0.5, r: 6, color: '#4ade80', name: 'Delta Core', type: 'core' },
-      { x: 0.5, y: 0.1, r: 5, color: '#ec4899', name: 'Nebula-3', type: 'nebula' },
-    ];
-
-    let selectedSector = null;
-    let mouseX = 0, mouseY = 0;
-
-    canvas.addEventListener('mousemove', e => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-    });
-
-    canvas.addEventListener('click', e => {
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      sectors.forEach(s => {
-        const sx = s.x * canvas.width;
-        const sy = s.y * canvas.height;
-        const dist = Math.sqrt((x - sx) ** 2 + (y - sy) ** 2);
-        if (dist < s.r + 10) {
-          selectedSector = s;
-        }
-      });
-    });
-
-    function drawMap() {
-      ctx.fillStyle = '#0a0a0a';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Grid
-      ctx.strokeStyle = '#1a1a1a';
-      ctx.lineWidth = 1;
-      for (let i = 0; i < canvas.width; i += 50) {
-        ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
-      }
-      for (let i = 0; i < canvas.height; i += 50) {
-        ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke();
-      }
-
-      // Connections
-      ctx.strokeStyle = '#222';
-      ctx.lineWidth = 1;
-      for (let i = 0; i < sectors.length; i++) {
-        for (let j = i + 1; j < sectors.length; j++) {
-          const dx = sectors[i].x - sectors[j].x;
-          const dy = sectors[i].y - sectors[j].y;
-          if (Math.sqrt(dx*dx + dy*dy) < 0.5) {
-            ctx.beginPath();
-            ctx.moveTo(sectors[i].x * canvas.width, sectors[i].y * canvas.height);
-            ctx.lineTo(sectors[j].x * canvas.width, sectors[j].y * canvas.height);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Sectors
-      sectors.forEach(s => {
-        const sx = s.x * canvas.width;
-        const sy = s.y * canvas.height;
-        const isHovered = Math.sqrt((mouseX - sx) ** 2 + (mouseY - sy) ** 2) < s.r + 10;
-        const isSelected = selectedSector === s;
-
-        // Glow
-        if (isHovered || isSelected) {
-          ctx.shadowColor = s.color;
-          ctx.shadowBlur = 20;
-        } else {
-          ctx.shadowBlur = 0;
-        }
-
-        // Planet
-        ctx.beginPath();
-        ctx.arc(sx, sy, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = s.color;
-        ctx.fill();
-
-        // Ring
-        ctx.beginPath();
-        ctx.arc(sx, sy, s.r + 4, 0, Math.PI * 2);
-        ctx.strokeStyle = s.color + '40';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        ctx.shadowBlur = 0;
-
-        // Label
-        ctx.fillStyle = '#fff';
-        ctx.font = '11px monospace';
-        ctx.textAlign = 'center';
-        ctx.fillText(s.name, sx, sy + s.r + 16);
-
-        // Type indicator
-        ctx.fillStyle = '#888';
-        ctx.font = '9px monospace';
-        ctx.fillText(s.type.toUpperCase(), sx, sy + s.r + 28);
-      });
-
-      // Tooltip
-      if (selectedSector) {
-        const sx = selectedSector.x * canvas.width;
-        const sy = selectedSector.y * canvas.height;
-        ctx.fillStyle = 'rgba(0,0,0,0.9)';
-        ctx.strokeStyle = selectedSector.color;
-        ctx.lineWidth = 1;
-        const tw = 140, th = 70;
-        let tx = sx + 20, ty = sy - 20;
-        if (tx + tw > canvas.width) tx = sx - tw - 20;
-        if (ty < 0) ty = sy + 20;
-        ctx.fillRect(tx, ty, tw, th);
-        ctx.strokeRect(tx, ty, tw, th);
-        ctx.fillStyle = '#fff';
-        ctx.font = '11px monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText(selectedSector.name, tx + 8, ty + 18);
-        ctx.fillStyle = '#888';
-        ctx.font = '10px monospace';
-        ctx.fillText('Yield: ' + (selectedSector.type === 'core' ? '1.0x' : selectedSector.type === 'wormhole' ? '2.5x' : '1.5x'), tx + 8, ty + 34);
-        ctx.fillText('Risk: ' + (selectedSector.type === 'core' ? 'Low' : selectedSector.type === 'blackmarket' ? 'High' : 'Med'), tx + 8, ty + 50);
-        ctx.fillText('Players: ' + Math.floor(Math.random() * 2000 + 500), tx + 8, ty + 64);
-      }
-
-      requestAnimationFrame(drawMap);
-    }
-    drawMap();
-
-    // Price ticker animation
-    const prices = {
-      ETH: 3247.18, BTC: 67891.42, SOL: 142.67, ARB: 1.08, USDC: 1.00
-    };
-    function updateTicker() {
-      const ticker = document.getElementById('ticker');
-      ticker.innerHTML = Object.entries(prices).map(([sym, price]) => {
-        const change = (Math.random() * 6 - 3).toFixed(2);
-        const color = change >= 0 ? '#0f0' : '#f00';
-        return `<div class="ticker-item"><span class="ticker-symbol">${sym}</span><span class="ticker-price">$${price.toLocaleString()}</span><span class="ticker-change" style="color: ${color}">${change >= 0 ? '+' : ''}${change}%</span></div>`;
-      }).join('');
-    }
-    setInterval(updateTicker, 3000);
-
-    // Chat
-    function sendChat() {
-      const input = document.getElementById('chatInput');
-      const msg = input.value.trim();
-      if (!msg) return;
-      const messages = document.getElementById('chatMessages');
-      const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
-      messages.innerHTML += `<div class="chat-msg"><span class="time">[${time}]</span> <span class="user" style="color: #0ff;">You:</span> ${msg}</div>`;
-      messages.scrollTop = messages.scrollHeight;
-      input.value = '';
-    }
-    document.getElementById('chatInput').addEventListener('keypress', e => {
-      if (e.key === 'Enter') sendChat();
-    });
-  </script>
 </body>
 </html>
- 
