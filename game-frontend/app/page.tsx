@@ -7,6 +7,14 @@ import Shop from "@/components/Shop";
 import FleetManager from "@/components/FleetManager";
 import TechTree from "@/components/TechTree";
 import MarketRadar from "@/components/MarketRadar";
+import PriceTicker from "@/components/PriceTicker";
+import ParticleEffects from "@/components/ParticleEffects";
+import Onboarding from "@/components/Onboarding";
+import Achievements from "@/components/Achievements";
+import DailyQuests from "@/components/DailyQuests";
+import PortfolioChart from "@/components/PortfolioChart";
+import Leaderboard from "@/components/Leaderboard";
+import ChatFeed from "@/components/ChatFeed";
 import { GameAPI } from "@/lib/api";
 
 const SpaceMap = dynamic(() => import("@/components/SpaceMap"), { ssr: false });
@@ -23,21 +31,24 @@ const MOCK_SECTORS = [
 
 export default function Dashboard() {
   const [selectedSector, setSelectedSector] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"map" | "fleets" | "tech" | "radar" | "shop" | "leaderboard">("map");
+  const [activeTab, setActiveTab] = useState<"map" | "fleets" | "tech" | "radar" | "shop" | "leaderboard" | "achievements" | "portfolio" | "chat">("map");
   const [walletConnected, setWalletConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
   const [balance, setBalance] = useState("100.00");
+  const [showOnboarding, setShowOnboarding] = useState(true);
 
   const api = new GameAPI();
 
   const connectWallet = async () => {
-    // Mock wallet connection — replace with Circle wallet SDK
     setWalletAddress("0x..." + Math.random().toString(36).slice(2, 8));
     setWalletConnected(true);
   };
 
   return (
     <div className="min-h-screen bg-black">
+      {showOnboarding && <Onboarding onComplete={() => setShowOnboarding(false)} />}
+      <ParticleEffects />
+
       {/* Top nav */}
       <nav className="border-b border-gray-800 bg-gray-900/50 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -79,6 +90,8 @@ export default function Dashboard() {
               token="demo-token"
             />
 
+            <PriceTicker />
+
             <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 space-y-2">
               <div className="text-xs text-gray-500 uppercase">Navigation</div>
               {[
@@ -88,6 +101,9 @@ export default function Dashboard() {
                 { id: "radar", label: "📡 Market Radar", desc: "Trading signals" },
                 { id: "shop", label: "🛒 Market", desc: "Buy boosts & packs" },
                 { id: "leaderboard", label: "🏆 Leaderboard", desc: "Season rankings" },
+                { id: "achievements", label: "🏅 Achievements", desc: "Badges & quests" },
+                { id: "portfolio", label: "📈 Portfolio", desc: "Performance & stats" },
+                { id: "chat", label: "💬 Global Feed", desc: "Chat & intel" },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -106,7 +122,7 @@ export default function Dashboard() {
           </div>
 
           {/* Main content */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 space-y-4">
             {activeTab === "map" && (
               <div className="space-y-4">
                 <SpaceMap
@@ -157,11 +173,38 @@ export default function Dashboard() {
             )}
 
             {activeTab === "leaderboard" && (
-              <div className="bg-gray-900 border border-gray-700 rounded-lg p-8 text-center">
-                <div className="text-4xl mb-4">🏆</div>
-                <div className="text-lg font-bold">Leaderboard</div>
-                <div className="text-sm text-gray-500">Coming in next build... Seasonal rankings with USDC prizes.</div>
+              <Leaderboard />
+            )}
+
+            {activeTab === "achievements" && (
+              <div className="space-y-4">
+                <DailyQuests />
+                <Achievements />
               </div>
+            )}
+
+            {activeTab === "portfolio" && (
+              <div className="space-y-4">
+                <PortfolioChart />
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 text-center">
+                    <div className="text-2xl font-bold text-green-400">$7,200</div>
+                    <div className="text-xs text-gray-500">Total Profit</div>
+                  </div>
+                  <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 text-center">
+                    <div className="text-2xl font-bold text-cyan-400">58%</div>
+                    <div className="text-xs text-gray-500">Win Rate</div>
+                  </div>
+                  <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 text-center">
+                    <div className="text-2xl font-bold text-yellow-400">1.84</div>
+                    <div className="text-xs text-gray-500">Sharpe Ratio</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "chat" && (
+              <ChatFeed />
             )}
           </div>
         </div>

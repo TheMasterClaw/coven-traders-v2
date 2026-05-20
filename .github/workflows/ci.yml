@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install Frontend
+        run: cd game-frontend && npm ci
+        
+      - name: Build Frontend
+        run: cd game-frontend && npm run build
+        
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Test Signal Aggregator
+        run: |
+          cd signal-aggregator
+          pip install -r requirements.txt
+          pytest -v
+          
+      - name: Test Idle Engine
+        run: |
+          cd idle-engine
+          pip install -r requirements.txt
+          pytest -v
+          
+      - name: Test Agent Coaching
+        run: |
+          cd agent-coaching
+          pip install -r requirements.txt
+          pytest -v
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./game-frontend/dist
